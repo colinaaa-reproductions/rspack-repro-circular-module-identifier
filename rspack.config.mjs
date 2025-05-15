@@ -1,4 +1,11 @@
 import { rspack } from '@rspack/core'
+import CircularDependencyWebpackPlugin from 'circular-dependency-plugin'
+
+const isRunningWebpack = !!process.env.WEBPACK;
+const isRunningRspack = !!process.env.RSPACK;
+if (!isRunningRspack && !isRunningWebpack) {
+  throw new Error("Unknown bundler");
+}
 
 /**
  * @type {import('webpack').Configuration | import('@rspack/cli').Configuration}
@@ -12,9 +19,13 @@ const config = {
       layer: 'main'
     },
   },
-  plugins: [new rspack.CircularDependencyRspackPlugin({
+  plugins: [
+    isRunningRspack ?
+    new rspack.CircularDependencyRspackPlugin({
     failOnError: true,
-  })],
+  }): new CircularDependencyWebpackPlugin({
+        failOnError: true,
+      })],
   module: {
     rules: [
       {

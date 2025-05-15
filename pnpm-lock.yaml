@@ -27,6 +27,9 @@ importers:
       '@rsbuild/core':
         specifier: ^1.1.13
         version: 1.1.13
+      circular-dependency-plugin:
+        specifier: ^5.2.2
+        version: 5.2.2(webpack@5.97.1)
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -549,6 +552,12 @@ packages:
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
+
+  circular-dependency-plugin@5.2.2:
+    resolution: {integrity: sha512-g38K9Cm5WRwlaH6g03B9OEz/0qRizI+2I7n+Gz+L5DxXJAPAiWQvwlYNm1V1jkdpUv95bOe/ASm2vfi/G560jQ==, tarball: https://registry.npmjs.org/circular-dependency-plugin/-/circular-dependency-plugin-5.2.2.tgz}
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      webpack: '>=4.0.1'
 
   clean-css@5.3.3:
     resolution: {integrity: sha512-D5J+kHaVb/wKSFcyyV75uCn8fiY4sV38XJoe4CUyGQ+mOU/fMVYUdH1hJC+CJQ5uY3EnW27SbJYS4X8BiLrAFg==}
@@ -2308,6 +2317,10 @@ snapshots:
       fsevents: 2.3.3
 
   chrome-trace-event@1.0.4: {}
+
+  circular-dependency-plugin@5.2.2(webpack@5.97.1):
+    dependencies:
+      webpack: 5.97.1(webpack-cli@6.0.1)
 
   clean-css@5.3.3:
     dependencies:
