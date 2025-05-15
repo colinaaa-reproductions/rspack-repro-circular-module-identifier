@@ -1,13 +1,4 @@
-import path from "path";
-import { fileURLToPath } from "url";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const isRunningWebpack = !!process.env.WEBPACK;
-const isRunningRspack = !!process.env.RSPACK;
-if (!isRunningRspack && !isRunningWebpack) {
-  throw new Error("Unknown bundler");
-}
+import { rspack } from '@rspack/core'
 
 /**
  * @type {import('webpack').Configuration | import('@rspack/cli').Configuration}
@@ -16,18 +7,29 @@ const config = {
   mode: "development",
   devtool: false,
   entry: {
-    main: "./src/index",
+    main:{
+      import:  "./src/index",
+      layer: 'main'
+    },
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new rspack.CircularDependencyRspackPlugin({
+    failOnError: true,
+  })],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: './echo-loader.js',
+      }
+    ]
+  },
   output: {
     clean: true,
-    path: isRunningWebpack
-      ? path.resolve(__dirname, "webpack-dist")
-      : path.resolve(__dirname, "rspack-dist"),
     filename: "[name].js",
   },
   experiments: {
     css: true,
+    layers: true,
   },
 };
 

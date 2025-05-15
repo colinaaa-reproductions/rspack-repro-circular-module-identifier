@@ -1,3 +1,3 @@
-import('./render').then(exports => {
-    exports.render()
-})
+import {foo} from './foo.js'
+
+foo()
